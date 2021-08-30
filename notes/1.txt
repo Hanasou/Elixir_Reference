@@ -1,0 +1,18 @@
+Create a new project with Mix
+mix new <project_name>
+
+Modules and Functions
+- Use "defmodule" to declare a module. Most all of our code will be grouped into a module
+- Use "def" to declare a function.
+- It appears that both of these constructs have a "do" at the beginning, and "end" at the end.
+- So a function will look something like...
+def func do
+    "hello world"
+end
+- Elixir has implicit return, kind of like Scala, where the last line is what we return
+
+Running our program
+Type in...
+iex -S mix
+- This opens up a REPL to type Elixir code in. This also compiles our project so we're able to run it in here.
+- So to run what we want, we write Module.function()
