@@ -16,3 +16,22 @@ Type in...
 iex -S mix
 - This opens up a REPL to type Elixir code in. This also compiles our project so we're able to run it in here.
 - So to run what we want, we write Module.function()
+- The REPL does not automatically recompile when we change our code. In order to do that, we have to type in "recompile"
+
+Enum Module
+- The Enum module is a module that's a part of the Elixir standard library
+- It has all the functions you would expect when working with enumerable collections such as map, filter, and reduce
+- We don't even have to import it or anything like that
+- shuffle(enumerable) will shuffle the enumerable (randomize it)
+- member?(enumerable, member) will return true or false depending on whether member is inside enumerable
+- The convention for functions here is that there's a question mark at the end for functions that return boolean values. Kinda weird but okay.
+
+List Comprehension
+- There are for loops in Elixir, but the syntax is a little wonky
+- The for loop is essentially a mapping function
+- I can explain a little bit more in the actual code
+- If we nest comprehensions within each other (one for loop inside another), then things might not work out the way we expect
+- Again, remember that the for loop is basically a map function. Each complete run of a for loop will return a new list.
+so if we nest comprehensions within each other, then we'll get multiple lists.
+- If we want, we can call List.flatten to turn our list of lists into a single list.
+- The other way to do it is to include the two enumerables in the same comprehension. It's easier to see what I mean in the code.
