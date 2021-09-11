@@ -71,4 +71,13 @@ defmodule Cards do
         end
     end
   end
+
+  def create_hand(hand_size) do
+    # We're able to chain the return values of functions together with the pipe operator
+    # The result of create_deck is going to get passed into Cards.shuffle
+    # Result of shuffle is going to get passed into deal (deal normally takes in two arguments, but only has one because deck is automatically passed in)
+    Cards.create_deck()
+    |> Cards.shuffle()
+    |> Cards.deal(hand_size)
+  end
 end

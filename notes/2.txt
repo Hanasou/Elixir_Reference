@@ -61,3 +61,9 @@ iex(22)> blue
 iex(23)> ["red", blue] = ["not red", "blue"]
 ** (MatchError) no match of right hand side value: ["not red", "blue"]
 - So where can this be used? Well we can use a case statement to match a literal.
+
+Dependencies
+- Generating the project gave us a Mixfile (mix.exs).
+- This has various things about our project. One of which is dependencies located in deps
+- Deps takes in tuples of atom-version pairs. The atom signifies the name of our dependency, while the version is a string.
+- install dependencies with mix deps.get
