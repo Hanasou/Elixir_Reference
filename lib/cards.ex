@@ -12,6 +12,8 @@ defmodule Cards do
       :world
 
   """
+  @file_path "./resources/deck"
+
   def hello do
     :world
   end
@@ -43,5 +45,30 @@ defmodule Cards do
 
   def deal(deck, hand_size) do
     Enum.split(deck, hand_size)
+  end
+
+  def save(deck) do
+    # In order to interact with our file system, we have to use erlang
+    # This is how we access the erlang module
+
+    # Convert our deck string into something that can be written to the file system
+    binary = :erlang.term_to_binary(deck)
+    # Write the thing to a file
+    File.write(@file_path, binary)
+  end
+
+  def load() do
+    # This is a pretty interesting structure known as a case.
+    # It's kind of like pattern matching combined with if statements.
+    # You can think of it like a switch in other languages.
+
+    # We can switch on literals, or on variables.
+    case File.read(@file_path) do
+       {:ok, binary} -> :erlang.binary_to_term(binary)
+       {:error, reason} ->
+        case reason do
+          :enoent -> "This file does not exist"
+        end
+    end
   end
 end

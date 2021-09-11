@@ -1,0 +1,63 @@
+Pattern Matching
+- Elixir's replacement for variable assignment
+- Pattern matching is essentially used any time there's an equal sign
+- In Elixir, traditional indexing doesn't work. If you want to access an element by index, you have to use Enum.at, or enum.fetch.
+- Otherwise, you'd have to pattern match. Here are some examples.
+
+- Plain assignment is the most basic form of pattern matching
+iex(1)> deck = Cards.create_deck
+["Ace of Clubs", "One of Clubs", "Two of Clubs", "Ace of Diamonds",
+ "One of Diamonds", "Two of Diamonds", "Ace of Hearts", "One of Hearts",
+ "Two of Hearts", "Ace of Spades", "One of Spades", "Two of Spades"]
+
+ - You can assign elements of a tuple by "matching" it to another tuple for other variables
+ - In this example, deal(deck, 5) will return a tuple containing a hand of 5, and the rest of the deck.
+ - On the left, we assign another tuple to it, which will match the pattern that our function returned.
+ - Therefore, we assigned the two different values to two different variables
+iex(2)> {hand, rest_of_deck} = Cards.deal(deck, 5)
+{["Ace of Clubs", "One of Clubs", "Two of Clubs", "Ace of Diamonds",
+  "One of Diamonds"],
+ ["Two of Diamonds", "Ace of Hearts", "One of Hearts", "Two of Hearts",
+  "Ace of Spades", "One of Spades", "Two of Spades"]}
+iex(3)> hand
+["Ace of Clubs", "One of Clubs", "Two of Clubs", "Ace of Diamonds",
+ "One of Diamonds"]
+iex(4)> rest_of_deck
+["Two of Diamonds", "Ace of Hearts", "One of Hearts", "Two of Hearts",
+ "Ace of Spades", "One of Spades", "Two of Spades"] 
+
+ - Another example
+iex(5)> red = ["red"]
+["red"]
+- Another example of basic assignment. We're assigning the entire list here to the variable red.
+
+- What if we want to assign the string "red" to the variable red from a list?
+- We do it the same way we would in our tuple example
+iex(6)> [red] = ["red"]
+["red"]
+iex(7)> red
+"red"
+- The right side returns a list, so if we want to assign a variable to an element of that list, we need to
+match the pattern by wrapping it in a list.
+
+- If the patterns on the left and right do not match, we get an error
+ex(9)> [red, blue] = ["red"]
+** (MatchError) no match of right hand side value: ["red"]
+iex(9)> [red] = ["red", "blue"]
+** (MatchError) no match of right hand side value: ["red", "blue"]
+
+Atoms
+- Atoms are basically like strings. They handle things like status codes. They are words followed by a colon. (:ok, :error)
+- So when should you use atoms vs strings? Atoms are used when you want to codify something. A response code would be a good example.
+Strings should contain direct messages, or really anything you would generally use strings for.
+
+More Pattern Matching
+- You can match literals together.
+iex(21)> ["red", blue] = ["red", "blue"]
+["red", "blue"]
+iex(22)> blue
+"blue"
+- Matching literals together only works if the literals, well, match.
+iex(23)> ["red", blue] = ["not red", "blue"]
+** (MatchError) no match of right hand side value: ["not red", "blue"]
+- So where can this be used? Well we can use a case statement to match a literal.
