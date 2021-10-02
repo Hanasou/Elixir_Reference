@@ -67,3 +67,55 @@ Dependencies
 - This has various things about our project. One of which is dependencies located in deps
 - Deps takes in tuples of atom-version pairs. The atom signifies the name of our dependency, while the version is a string.
 - install dependencies with mix deps.get
+
+Documentation
+- Kinda short. You can go ahead and look at some of the code to see how to write module level, and function level documentation.
+- The one thing to note is Examples. Make sure you format it exactly
+  ## Examples
+      iex> Cards.hello()
+      :world
+- Make sure "## Examples" is on the same indentation level as your function.
+- Make sure you have two pound signs, followed by a space, followed by "Examples" with a capital E.
+- Make sure there's two indentations for each line that follows "## Examples" (all lines that have code in them).
+
+Testing
+- Testing is a first-class citizen in Elixir, so no need for dependencies to make good tests.
+- Simply run `mix test` in your command line to run your tests.
+- One interesting thing about Elixir is the "doctest".
+- Essentially, if you have documentation in your code with Examples, then Elixir will look at that
+section, and test that code to see if it has the correct behavior. Kinda cool.
+
+Maps
+- You know how maps work. Here's how to initialize them in Elixir.
+colors = %{primary: "red", secondary = "blue"}
+- We can access the values with dot notation
+primary_color = colors.primary
+- We can also use pattern matching
+%{secondary: secondary_color} = colors
+- Remember how pattern matching works. The data structures on the left and right must match. You can think of the data structures as "cancelling out"
+to assign a variable directly to what's inside the data structure. The code above confirms that the structures on the left and right are both maps.
+Then, it confirms that both share the same key (secondary in this case), and then it will assign the secondary_color variable to the value inside
+the colors map under the secondary key.
+- Remember some principles of functional programming. We can't reassign a value inside the map. We have to create an entirely new data structure and
+reassign our variable to the new map we created.
+- Basically keep in mind that we're going to be primarily interacting with functions to modify our data structures.
+- In this case, we'll be using the Put function, which basically upserts a value.
+colors = Map.put(colors, :primary, "blue")
+- Notice that we're reassigning our map to this new one that the "put" function gives us. We're not mutating our currently existing map.
+- Notice that we're using the atom as the key we're upserting.
+- There's also some syntactical sugar we can use.
+colors = %{ colors | primary: "blue" }
+- Note that this syntax only works for updating an existing property. It does not insert it if it doesn't exist. If we put a key that does not exist after the pipe symbol,
+then we'll get an error.
+- This indicates that we're making a new map out of colors, and we're updating a key/value pair next to the pipe operator ( | ).
+- There's also a put_new function that will only get triggered if the key doesn't exist in the map.
+
+Keyword Lists
+- You can kind of think of this like a list of tuples, each containing key/value pairs.
+- Why would you want to do this? One example is if you need multiple "keys" that are the same, since keys have to be unique in maps.
+- An example of where this would be useful would be if we're querying some data, and we need to chain some "where" clauses. Then we would pass in a Keyword
+list which would have multiple "where" keys where each of them would contain a clause.
+- If a keyword list is the last element in a function call, then you can omit the square brackets that usually contain them. The fact that
+keyword lists get this kind of treatment sort of indicates that these are a pretty big deal.
+- Also, you can omit the parantheses of a function call. I noticed functional languages like Elixir and Scala have many features that make the language look like plain English.
+Just a thought.

@@ -1,6 +1,6 @@
 defmodule Cards do
   @moduledoc """
-  Documentation for `Cards`.
+  This represents a deck of cards and its associated functions.
   """
 
   @doc """
@@ -18,6 +18,9 @@ defmodule Cards do
     :world
   end
 
+  @doc """
+    Function documentation is written like this.
+  """
   def create_deck do
     # Defining a list is pretty similar to Python
     # Also remember that the last element is what is automatically returned
@@ -43,7 +46,14 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
+  @doc """
+  Divides the deck into a hand and the remainder of the deck.
+  hand_size is the number of elements in the hand
+  """
   def deal(deck, hand_size) do
+    # Split takes two elements
+    # The first is a list, and the second is an integer.
+    # We take the number of elements from that integer and
     Enum.split(deck, hand_size)
   end
 
