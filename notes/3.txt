@@ -1,0 +1,4 @@
+Structs
+- Find the struct definition inside Identicon.Image
+- We initialize a struct like this
+%ModuleName{FieldName: FieldValue}

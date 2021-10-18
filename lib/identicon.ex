@@ -1,3 +1,0 @@
-defmodule Identicon do
-
-end
