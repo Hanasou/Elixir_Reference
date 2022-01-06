@@ -55,12 +55,15 @@ defmodule Identicon do
     |> Enum.chunk_every(3) # We're chunking our list into multiple lists each with 3 elements
     # The next thing we do is we have to mirror the values inside each chunk.
     # We'll write a helper function to do that
-    |> mirror_row()
+    |> Enum.map(&mirror_row/1)
 
     image
   end
 
-  def mirror_row(hex) do
-    hex
+  def mirror_row(row) do
+    # Takes in a single row of 3, and outputs a mirrored row of 5
+    [first, second | _tail] = row
+    # We use the ++ operator to join lists together
+    row ++ [second, first]
   end
 end

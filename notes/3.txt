@@ -11,8 +11,21 @@ More Pattern Matching stuff for Structs
 def get_rgb_refactored(%Identicon.Image{hex: [r, g, b | _tail]} = image)
 - We can pattern match these values as we're passing them into a function as well
 
-Reminder of the pipe operator, we're passing the value on the top of this as an argument into all the functions below it
-- So hex gets passed as the first argument into Enum.chunk_every(3) and mirror_row()
+Reminder of the pipe operator, the output of one function will get passed into the input for another
+- So hex gets passed as the first argument into Enum.chunk_every(3)
+and the output of Enum.chunk_every(3) gets passed into some_func
 hex     
 |> Enum.chunk_every(3) 
-|> mirror_row()
+|> some_func()
+
+Joining lists
+- Use the ++ operator
+list1 ++ list2
+
+Function References
+- So what if we want to pass functions as arguments into other functions?
+Enum.map(rows, &mirror_row/1)
+- Basically, we're applying our mirror_row function to every element in rows
+- What's up with this syntax? Well, if we passed the literal function in there, then the function would get called.
+So what we actually want to do is pass a reference to the function with '&'
+The '/1' at the end indicates that there's one argument in this function.
