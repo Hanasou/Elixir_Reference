@@ -2,3 +2,17 @@ Structs
 - Find the struct definition inside Identicon.Image
 - We initialize a struct like this
 %ModuleName{FieldName: FieldValue}
+
+More Pattern Matching stuff for Structs
+%Identicon.Image{hex: [r, g, b | _tail]} = image
+- To review, what we're basically doing here is initializing seperate r, g, and b variables based on what's inside of the hex field
+- | _tail means that we're basically tossing away the rest of the values in hex
+
+def get_rgb_refactored(%Identicon.Image{hex: [r, g, b | _tail]} = image)
+- We can pattern match these values as we're passing them into a function as well
+
+Reminder of the pipe operator, we're passing the value on the top of this as an argument into all the functions below it
+- So hex gets passed as the first argument into Enum.chunk_every(3) and mirror_row()
+hex     
+|> Enum.chunk_every(3) 
+|> mirror_row()
