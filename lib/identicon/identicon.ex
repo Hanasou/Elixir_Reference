@@ -5,6 +5,8 @@ defmodule Identicon do
     input
     |> hash_string
     |> get_rgb
+    |> build_grid()
+    |> filter_odds()
   end
 
   def hash_string(input) do
@@ -51,13 +53,15 @@ defmodule Identicon do
     # So we generated a list of numbers for our image, now we have to build a symmetric grid off of it
     # The first thing we do is chunk the numbers into multiple lists
     # We do this with the Enum.chunk function, which will generate multiple lists based on what we pass into it
-    hex # Keep in mind that the pipe operator is passing in the hex variable into all these functions
-    |> Enum.chunk_every(3) # We're chunking our list into multiple lists each with 3 elements
+    grid = hex # Keep in mind that the pipe operator is passing in the hex variable into all these functions
+    |> Enum.chunk_every(3, 3, :discard) # We're chunking our list into multiple lists each with 3 elements
     # The next thing we do is we have to mirror the values inside each chunk.
     # We'll write a helper function to do that
     |> Enum.map(&mirror_row/1)
+    |> List.flatten() # Change our list of lists into just a single list
+    |> Enum.with_index() # Pack all the values in our list with the index
 
-    image
+    %Identicon.Image{image | grid: grid}
   end
 
   def mirror_row(row) do
@@ -65,5 +69,12 @@ defmodule Identicon do
     [first, second | _tail] = row
     # We use the ++ operator to join lists together
     row ++ [second, first]
+  end
+
+  def filter_odds(%Identicon.Image{grid: grid} = image) do
+    # Just a reminder that variables that you want to throw away are prefaced with an underscore
+    # Yeah we have some monster one-liners here.
+    # Don't worry, just look at this carefully, and you'll get it
+    %Identicon.Image{image | grid: Enum.filter(grid, fn({code, _index}) -> rem(code, 2) == 0 end)}
   end
 end
