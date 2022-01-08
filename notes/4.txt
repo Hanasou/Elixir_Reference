@@ -1,0 +1,3 @@
+Phoenix
+- mix phx.new <project name> is how we generate a new phoenix project
+- Oh, make sure you have Phoenix actually installed
