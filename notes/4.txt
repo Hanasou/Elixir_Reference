@@ -1,3 +1,13 @@
 Phoenix
 - mix phx.new <project name> is how we generate a new phoenix project
 - Oh, make sure you have Phoenix actually installed
+- While inside the root directory of our Phoenix app (in this case, "discuss"), run mix ecto.create to set up the database
+- In order to set that up, you need an instance of Postgres running
+- Run mix phx.server to start the server
+
+- Phoenix is a full MVC framework. It has all sorts of things that you would expect from one.
+- Elixir comes with its own html templating that you'll see in the .heex files
+
+Layout
+- In the layout directory you'll see a bunch of heex files that includes the UI for the application
+- root.html.heex contains the header for all our pages.
