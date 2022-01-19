@@ -11,3 +11,21 @@ Phoenix
 Layout
 - In the layout directory you'll see a bunch of heex files that includes the UI for the application
 - root.html.heex contains the header for all our pages.
+- index.html.heex under the page directory is the index for the "/" path. I'm assuming this will be the case for our other templates as well.
+
+How does this framework really work?
+- There's a lot of stuff under the hood that can't be gathered from simply looking at the code. I don't like that, but whatever.
+- Phoenix looks at the names of your views, as in the files under the "views" directory.
+- Notice how the name of the view modules matches up with the directories under templates. See PageView, and LayoutView and how there are corresponding
+page and layout directories under templates.
+- Phoenix will look at your view modules, and it will render the corresponding html templates in each corresponding directory in the templates directory.
+- The html templates get rendered when the render function gets called, which happens in the corresponding controllers.
+- Woah hang on a minute, render is a part of the PageView module? I guess it's invisible?
+- The functions that call the render function get called in the router, when we make a request to a certain route in our application.
+- Hopefully you got all that, don't worry, you've been through this kind of thing before.
+
+DB Migrations
+- Generate a migration script for the ddl we need in our database
+mix ecto.gen.migration <file_name>
+- To run the migration script(s)
+mix ecto.migrate

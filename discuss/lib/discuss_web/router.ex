@@ -14,9 +14,12 @@ defmodule DiscussWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # This is where we route all our requests
   scope "/", DiscussWeb do
     pipe_through :browser
 
+    # Whenever we receive a get requests, find the PageController Module, and run the index function
+    # We can find the actual function in the page_controller.ex file
     get "/", PageController, :index
   end
 
