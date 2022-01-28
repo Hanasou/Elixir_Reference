@@ -21,6 +21,7 @@ defmodule DiscussWeb.Router do
     # Whenever we receive a get requests, find the PageController Module, and run the index function
     # We can find the actual function in the page_controller.ex file
     get "/", PageController, :index
+    get "/topics/new", TopicController, :new
   end
 
   # Other scopes may use custom stacks.

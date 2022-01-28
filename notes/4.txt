@@ -29,3 +29,11 @@ DB Migrations
 mix ecto.gen.migration <file_name>
 - To run the migration script(s)
 mix ecto.migrate
+
+Changesets
+- There were a lot of things about Phoenix and MVC that I didn't take notes on here. I'm probably never going to use this framework, but it might still be nice
+to see what I can pick up from listening to this.
+- Something to note is that in the course, there is a model interface you can use when defining models. That doesn't seem to exist in this version.
+- Changeset is a part of ecto. Changeset refers to both a function and struct returned by said function.
+- The function takes in a struct and some params. The struct is a model that you're interesting in changing, and the params are what you want to change.
+- The Changeset struct (what's getting returned by the changeset function) is what we're saving to the database.
