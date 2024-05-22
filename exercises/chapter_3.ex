@@ -1,4 +1,4 @@
-defmodule exercises do
+defmodule Exercises do
   # This function pattern matches to a static argument
   # If we call this function and we don't receive an argument that matches this
   # Then we will get an error
