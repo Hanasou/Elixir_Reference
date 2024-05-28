@@ -47,7 +47,7 @@ defmodule Identicon do
   # so we can return them in the function.
   def get_rgb_refactored(%Identicon.Image{hex: [r, g, b | _tail]} = image) do
     %Identicon.Image{image | color: {r, g, b}}
-  end
+  end 
 
   def build_grid(%Identicon.Image{hex: hex} = image) do
     # So we generated a list of numbers for our image, now we have to build a symmetric grid off of it
