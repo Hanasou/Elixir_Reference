@@ -83,4 +83,77 @@ defmodule Exercises do
     # matches the size of the list of kids
     |> Enum.zip(kids)
   end
+
+  # Pipelining Data
+  # Enum vs Stream
+  # Enum is for eager loading. Stream is for lazy loading.
+  # Let's say we have a large data pipeline. With Enum, we have to wait for it to process all the data we send it before we send it to the next step
+  # With Streams, once we're finished processing a batch of elements, we send it to the next step in the pipeline.
+  # Let's see an example
+  def run_eager(pieces) do
+    pieces
+    |> Enum.map(&add_thread/1)
+    |> Enum.map(&add_head/1)
+    |> Enum.each(&output/1)
+  end
+
+  defp add_thread(piece) do
+    Process.sleep(50)
+    piece <> "--"
+  end
+
+  defp add_head(piece) do
+    Process.sleep(100)
+    "o" <> piece
+  end
+
+  defp pack(pack) do
+    Process.sleep(70)
+    "|" <> piece <> "|"
+  end
+
+  defp output(screw) do
+    IO.inspect(screw)
+  end
+
+  # Notice in the example above that the add_thread and add_head functions take a long time to complete.
+  # We take a large number of pieces and apply the add_thread function to each of them.
+  # With the Enum module, we have to wait for the add_thread function to get applied to all of them before passing them into add_head
+  # and then we have to wait for all of them to complete before it gets sent to output
+  # It's a simple change if we want to do lazy loading instead
+  def run_lazy(pieces) do
+    pieces
+    |> Stream.map(&add_thread/1)
+    |> Stream.map(&add_head/1)
+    |> Enum.each(&output/1)
+  end
+
+  # All we did here was change this to use the stream api instead
+  # How about modifying this example to be more realistic?
+  # We can instead modify our code so that we're passing in batches of data to each step in the pipeline
+  # To do that, we use the chunk function
+  def run_lazy_batches(pieces) do
+    pieces
+    |> Stream.chunk(50)
+    |> Stream.flat_map(&add_thread/1)
+    |> Stream.chunk(100)
+    |> Stream.flat_map(&add_head/1)
+    |> Stream.chunk(30)
+    |> Stream.flat_map(&pack/1)
+    |> Enum.each(&output/1)
+  end
+
+  # Chunk will take our input list, and split it into batches of 50. So it will be a list of lists, with each list containing the specified number of elements
+  # Enum.chunk([1,2,3,4,5,6], 2) = [[1,2], [3,4], [5,6]]
+  # flat_map will "flatten" out our input list while also applying a mapping function. Because we're passing in a list of lists, we want a single list.
+  # It's kind of the opposite of chunk where we're putting in a list of lists and getting a single list
+  # Enum.flat_map([[1,2], [3,4], [5,6]], &(&1)) = [1,2,3,4,5,6]
+
+
+  # Here's Quicksort in Elixir. Take the time to study it if you'd like
+  def quicksort([]), do: []
+  def quicksort([pivot | tail]) do
+    {lesser, greater} = Enum.split_with(tail, &(&1 <= pivot))
+    sort(lesser) ++ [pivot] ++ sort(greater)
+  end
 end
