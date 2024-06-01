@@ -11,15 +11,14 @@ defmodule Exercises do
   def calculate_tax(salary) when salary <= 2000, do: 0
   def calculate_tax(salary) when salary <= 3000, do: salary * 0.05
   def calculate_tax(salary) when salary <= 6000, do: salary * 0.10
-  def calculate_tax(salary) do: salary * 0.15
+  def calculate_tax(salary), do: salary * 0.15
 
   user_input = IO.gets "Give me your salary: "
   result = case Float.parse(user_input) do
-    :error -> 
+    :error ->
         "Give me a number"
     {salary, _} ->
         take_home = salary - calculate_tax(salary)
         "Your take home pay is #{take_home}"
   end
 end
-
