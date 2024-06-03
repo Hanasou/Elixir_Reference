@@ -10,7 +10,6 @@ defmodule DungeonCrawler.CLI.RoomActionsChoice do
 
     chosen_action =
       room_actions
-      |> Enum.map(&(&1.label)) # Take the labels for each of our actions
       |> display_options # Inside our BaseCommands module. This will list everything with an index.
       |> generate_question # Also inside BaseCommands, prompts user for choice
       |> Shell.prompt

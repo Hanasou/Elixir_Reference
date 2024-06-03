@@ -12,7 +12,6 @@ defmodule DungeonCrawler.CLI.HeroChoice do
     find_hero_by_index = &Enum.at(heroes, &1)
 
     heroes
-    |> Enum.map(&(&1.name)) # Take only the name of the heroes
     |> display_options # Display the names of the heroes along with their indices
     |> generate_question # Offer a choice to the player
     |> Shell.prompt # Prompt will await an input from the user, and then it will return what the user has typed in, so that will be the input
