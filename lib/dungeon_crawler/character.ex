@@ -1,5 +1,6 @@
 defmodule DungeonCrawler.Character do
   # This is how you define a struct
+  # Structs take the name of the module they're defined in
   defstruct name: nil,
             description: nil,
             hit_points: 0,
